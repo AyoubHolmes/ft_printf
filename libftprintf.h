@@ -16,6 +16,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+typedef struct 
+{
+    char *flag;
+} flag;
+
 int		ft_strlen(const char *s);
 int		type_of_arg(const char *d, int *i);
 char	*ft_itoa(int n);

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libftprintf.h"
+
 static void		to_hexa(int n)
 {
 	if(n < 10)
@@ -21,7 +23,7 @@ static void		pointer(long long int n)
 {
 	if (n / 16)
 		pointer(n / 16);
-	pointer(n%16);
+	to_hexa(n%16);
 }
 
 static int		size_pointer(long long int n)
@@ -44,6 +46,7 @@ int     pointer_handler(va_list *ap)
 	/*
 		flag traitement
 	*/
+	ft_putstr_fd("0x", 1);
 	pointer(x);
-	return (size_pointer(x)/* + flag size */);
+	return (size_pointer(x) + 2/* + flag size */);
 }

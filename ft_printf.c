@@ -31,7 +31,9 @@ int		main(int c, char **arg)
 	ft_printf("%d", ft_printf("\n%d %s %c \n", 78, "wdwdw", 'c'));
 	printf("%d", printf("\n%d %s %c \n", 78, "wdwdw", 'c')); */
 	unsigned int i = 596321478;
-	ft_printf("%x\n",i);
-	printf("%x", i);
+	char *s= "Hello %% \' ehhhhh\n\tok\n";
+	unsigned int *p = &i; 
+	ft_printf("%p\n",s);
+	printf("%p\n", s);
 	return (0);
 }
