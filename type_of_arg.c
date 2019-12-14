@@ -12,6 +12,8 @@
 
 #include "libftprintf.h"
 
+//%[flags][width][.precision][length]specifier
+
 int		type_of_arg(const char *d, int *i, flag *indicator)
 {
     int j;
