@@ -18,13 +18,15 @@ int	print(const char *format, va_list *ap)
 	int		i;
 	int		c;
 	char	*type;
+	flag	flag_indecator;
 
 	i = 0;
 	c = 0;
+	//if(!Error_handler_function) {
 	while (format[i] != '\0')
 	{
-		if ((j = type_of_arg(&format[i], &i)) != -1)
-			c += controller(ap, j);
+		if ((j = type_of_arg(&format[i], &i, &flag_indecator)) != -1)
+			c += controller(ap, j, &flag_indecator);
 		else
 		{
 			c++;
@@ -32,5 +34,6 @@ int	print(const char *format, va_list *ap)
 		}
 		i++;
 	}
+	//}
 	return (c);
 }

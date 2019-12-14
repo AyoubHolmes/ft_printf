@@ -12,21 +12,21 @@
 
 #include "libftprintf.h"
 
-int	controller(va_list *ap, int conversion)
+int		controller(va_list *ap, int conversion, flag *indicator)
 {
 	if (conversion == 1)
-		return (int_handler(ap));
+		return (int_handler(ap, indicator));
 	if (conversion == 2)
-		return (unsigned_int_handler(ap));
+		return (unsigned_int_handler(ap, indicator));
 	if (conversion == 3)
-		return (char_handler(ap));
+		return (char_handler(ap, indicator));
 	if (conversion == 4)
-		return (string_handler(ap));
+		return (string_handler(ap, indicator));
 	if (conversion == 5)
-		return (hexa_minuscule_handler(ap));
+		return (hexa_minuscule_handler(ap, indicator));
 	if (conversion == 6)
-		return (hexa_majuscule_handler(ap));
+		return (hexa_majuscule_handler(ap, indicator));
 	if (conversion == 7)
-		return (pointer_handler(ap));
+		return (pointer_handler(ap, indicator));
 	return (0);
 }

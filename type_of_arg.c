@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int     type_of_arg(const char *d, int *i)
+int		type_of_arg(const char *d, int *i, flag *indicator)
 {
     int j;
     int k;
@@ -33,6 +33,7 @@ int     type_of_arg(const char *d, int *i)
                 k++;
             j +=k;
             *i = j;
+            indicator->test = 1;
             return (is_a_conversion(d[k]));
         }
     }

@@ -33,7 +33,7 @@ int		main(int c, char **arg)
 	unsigned int i = 596321478;
 	char *s= "Hello %% \' ehhhhh\n\tok\n";
 	unsigned int *p = &i; 
-	ft_printf("%p\n",s);
-	printf("%p\n", s);
+	ft_printf("%s\n",s);
+	printf("%s\n", s);
 	return (0);
 }

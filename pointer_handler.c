@@ -38,7 +38,7 @@ static int		size_pointer(long long int n)
 	}
 	return (i);
 } 
-int     pointer_handler(va_list *ap)
+int     pointer_handler(va_list *ap, flag *indicator)
 {
 	long long int x;
 

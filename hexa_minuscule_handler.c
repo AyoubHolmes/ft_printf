@@ -42,7 +42,7 @@ static int		size_hexa(unsigned int n)
 	}
 	return (i);
 } 
-int     hexa_minuscule_handler(va_list *ap)
+int     hexa_minuscule_handler(va_list *ap, flag *indicator)
 {
 	unsigned int x;
 

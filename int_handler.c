@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		int_handler(va_list *ap)
+int		int_handler(va_list *ap, flag *indicator)
 {
 	char *i;
 
