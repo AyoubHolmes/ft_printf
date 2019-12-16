@@ -12,12 +12,19 @@
 
 #include "libftprintf.h"
 
-int		unsigned_int_handler(va_list *ap, flag *indicator)
+int		unsigned_int_handler(va_list *ap, format_preciser *ind)
 {
 	char *i;
 
 	i = ft_uitoa(va_arg(*ap, int));
-	ft_putstr_fd(i, 1);
+	if(ind->flag == '-')
+	{
+		ft_putstr_fd(i, 1);
+	}
+	else
+	{
+		ft_putstr_fd(i, 1);
+	}
 	return (ft_strlen(i));
 }
 

@@ -18,14 +18,14 @@ int	print(const char *format, va_list *ap)
 	int		i;
 	int		c;
 	char	*type;
-	flag	flag_indecator;
+	format_preciser	flag_indecator = { '\0', 0, 0, 0 };
 
 	i = 0;
 	c = 0;
 	//if(!Error_handler_function) {
 	while (format[i] != '\0')
 	{
-		if ((j = type_of_arg(&format[i], &i, &flag_indecator)) != -1)
+		if ((j = type_of_arg(&format[i], &i, &flag_indecator, &c)) != -1)
 			c += controller(ap, j, &flag_indecator);
 		else
 		{

@@ -38,15 +38,19 @@ static int		size_pointer(long long int n)
 	}
 	return (i);
 } 
-int     pointer_handler(va_list *ap, flag *indicator)
+int     pointer_handler(va_list *ap, format_preciser *ind)
 {
 	long long int x;
 
 	x = va_arg(*ap, long long int);
-	/*
-		flag traitement
-	*/
 	ft_putstr_fd("0x", 1);
-	pointer(x);
+	if (ind->flag == '-')
+	{
+		pointer(x);
+	}
+	else
+	{
+		pointer(x);
+	}
 	return (size_pointer(x) + 2/* + flag size */);
 }

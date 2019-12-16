@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		controller(va_list *ap, int conversion, flag *indicator)
+int		controller(va_list *ap, int conversion, format_preciser *indicator)
 {
 	if (conversion == 1)
 		return (int_handler(ap, indicator));
@@ -28,5 +28,7 @@ int		controller(va_list *ap, int conversion, flag *indicator)
 		return (hexa_majuscule_handler(ap, indicator));
 	if (conversion == 7)
 		return (pointer_handler(ap, indicator));
+	if (conversion == 8)
+		return (percentage_handler(indicator));
 	return (0);
 }

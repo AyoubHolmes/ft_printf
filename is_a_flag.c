@@ -12,7 +12,17 @@
 
 #include "libftprintf.h"
 
-int is_a_flag(char d)
+// %[flags][width][.precision]specifier
+// flags = -,0, *, minimum field 
+// width = integer
+// precision = .integer
+
+int is_a_flag(char d, format_preciser *a)
 {
-    return (d == '-' || d == '0' || d == '.'|| d == '*' || d == ' ' );
+	if((d == '-' || d == '0') && !a->flag)
+	{
+		a->flag = d;
+		return(1);
+	}
+	return (0);
 }

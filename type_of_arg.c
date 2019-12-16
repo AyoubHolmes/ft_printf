@@ -11,33 +11,61 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+#include <stdio.h>
 
-//%[flags][width][.precision][length]specifier
+//%[flags][width][.precision]specifier
 
-int		type_of_arg(const char *d, int *i, flag *indicator)
+void    width(int *k, format_preciser *ind, const char *d)
 {
-    int j;
-    int k;
+    int i;
 
-    j = *i;
+    i = *k;
+    while(d[i] != '.' && ft_isdigit(d[i]))
+	{
+        ind->width =  ind->width * 10 + (d[i] - '0');
+        i++;
+	}
+	i++;
+    *k = i;
+}
+
+void    precision(int *k, format_preciser *ind, const char *d)
+{
+    int i;
+
+    i = *k;
+    while (ft_isdigit(d[i]))
+	{
+        ind->precision =  ind->precision * 10 + (d[i] - '0');
+        i++;
+    }
+    *k = i;
+}
+
+int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
+{
+    int inter;
+    int k;
+    int counter_helper;
+
+    inter = *idx;
+    counter_helper = *count;
     k = 1;
     if(d[0] == '%')
     {
-        if(d[1] == '%')
+        while(d[k] == ' ')
         {
-            j += 2;
-            *i = j;
-            ft_putchar_fd('%', 1);
+            ft_putchar_fd(' ', 1);
+            counter_helper++;
+            k++;
         }
-        else
-        {
-            while (is_a_flag(d[k]))
-                k++;
-            j +=k;
-            *i = j;
-            indicator->test = 1;
-            return (is_a_conversion(d[k]));
-        }
+        if (is_a_flag(d[k], ind))
+            k++;
+        width(&k, ind, d);
+        precision(&k, ind, d);
+        inter +=k;
+        *idx = inter;
+        *count = counter_helper;
     }
-    return (-1);
+    return (is_a_conversion(d[k]));
 }

@@ -12,14 +12,18 @@
 
 #include "libftprintf.h"
 
-int		string_handler(va_list *ap, flag *indicator)
+int		string_handler(va_list *ap, format_preciser *ind)
 {
 	char *s;
 
 	s = va_arg(*ap, char*);
-	/*
-		traitement flag
-	*/
-	ft_putstr_fd(s, 1);
+	if (ind->flag == '-')
+	{
+		ft_putstr_fd(s, 1);
+	}
+	else
+	{
+		ft_putstr_fd(s, 1);
+	}
 	return (ft_strlen(s));
 }

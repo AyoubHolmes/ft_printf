@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   int_handler.c                                      :+:      :+:    :+:   */
+/*   percentage_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulbaz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/11 18:18:14 by aboulbaz          #+#    #+#             */
-/*   Updated: 2019/12/11 18:18:16 by aboulbaz         ###   ########.fr       */
+/*   Created: 2019/12/15 17:27:26 by aboulbaz          #+#    #+#             */
+/*   Updated: 2019/12/15 17:27:30 by aboulbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		int_handler(va_list *ap, format_preciser *ind)
+int		percentage_handler(format_preciser *indicator)
 {
-	char *i;
-
-	i = ft_itoa(va_arg(*ap, int));
-	if(ind->flag == '-')
-	{
-		ft_putstr_fd(i, 1);
-	}
-	else
-	{
-		ft_putstr_fd(i, 1);
-	}
-	return (ft_strlen(i));
+	/*
+		traitement flag
+	*/
+	ft_putchar_fd('%', 1);
+	return (1);
 }
+

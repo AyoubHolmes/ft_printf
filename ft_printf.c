@@ -29,11 +29,12 @@ int		main(int c, char **arg)
 {
 	/* ft_printf("%%   sefrgrt % s bfejrbgejbrtwjgbrt\\\\", "ma man");
 	ft_printf("%d", ft_printf("\n%d %s %c \n", 78, "wdwdw", 'c'));
-	printf("%d", printf("\n%d %s %c \n", 78, "wdwdw", 'c')); */
+	printf("%d", printf("\n%d %s %c \n", 78, "wdwdw", 'c')); 
 	unsigned int i = 596321478;
 	char *s= "Hello %% \' ehhhhh\n\tok\n";
 	unsigned int *p = &i; 
-	ft_printf("%s\n",s);
-	printf("%s\n", s);
+	ft_printf("%s\n",s);*/
+	printf("%  0500.*d", 2,123);	
 	return (0);
 }
+// printf("flags: %c\twidth: %d\tprecision: %d", ind->flag, ind->width, ind->precision);

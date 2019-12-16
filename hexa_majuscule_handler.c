@@ -42,14 +42,18 @@ static int		size_hexa(unsigned int n)
 	}
 	return (i);
 } 
-int     hexa_majuscule_handler(va_list *ap, flag *indicator)
+int     hexa_majuscule_handler(va_list *ap, format_preciser *ind)
 {
 	unsigned int x;
 
 	x = va_arg(*ap, unsigned int);
-	/*
-		flag traitement
-	*/
-	hexa(x);
+	if (ind->flag == '-')
+	{
+		hexa(x);
+	}
+	else
+	{
+		hexa(x);
+	}
 	return (size_hexa(x)/* + flag size */);
 }
