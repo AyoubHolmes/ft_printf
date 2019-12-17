@@ -25,7 +25,8 @@ void    width(int *k, format_preciser *ind, const char *d)
         ind->width =  ind->width * 10 + (d[i] - '0');
         i++;
 	}
-	i++;
+    if (d[i] == '.')
+	    i++;
     *k = i;
 }
 

@@ -34,7 +34,8 @@ int		main(int c, char **arg)
 	char *s= "Hello %% \' ehhhhh\n\tok\n";
 	unsigned int *p = &i; 
 	ft_printf("%s\n",s);*/
-	printf("%  0500.*d", 2,123);	
+	printf("%-5d--\n", 'c');	
+	printf("%05c", 'c');	
 	return (0);
 }
 // printf("flags: %c\twidth: %d\tprecision: %d", ind->flag, ind->width, ind->precision);
