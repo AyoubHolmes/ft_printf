@@ -29,12 +29,13 @@ int		int_handler(va_list *ap, format_preciser *ind)
 	{
 		if (ind->width > lenght)
 		{
-			if (ind->flag == 0)
+			if (ind->flag == '0')
 				help_printer('0', ind->width - lenght);	
 			else
 				help_printer(' ', ind->width - lenght);
 		}
 		ft_putstr_fd(i, 1);
 	}
-	return (ft_strlen(i));
+	lenght = ind->width > lenght ? ind->width : lenght;
+	return (lenght);
 }

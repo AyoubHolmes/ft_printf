@@ -15,15 +15,22 @@
 int		string_handler(va_list *ap, format_preciser *ind)
 {
 	char *s;
+	int lenght;
 
 	s = va_arg(*ap, char*);
+	lenght = ft_strlen(s);
 	if (ind->flag == '-')
 	{
 		ft_putstr_fd(s, 1);
+		if (ind->width > lenght)
+			help_printer(' ', ind->width - lenght);
 	}
 	else
 	{
+		if (ind->width > lenght)
+			help_printer(' ', ind->width - lenght);
 		ft_putstr_fd(s, 1);
 	}
-	return (ft_strlen(s));
+	lenght = ind->width > lenght ? ind->width : lenght;
+	return (lenght);
 }

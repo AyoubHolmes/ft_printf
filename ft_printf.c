@@ -34,8 +34,10 @@ int		main(int c, char **arg)
 	char *s= "Hello %% \' ehhhhh\n\tok\n";
 	unsigned int *p = &i; 
 	ft_printf("%s\n",s);*/
-	printf("%-5d--\n", 'c');	
-	printf("%05c", 'c');	
+	//ft_printf("%d\n",ft_printf("%5d\n", 12));	
+	ft_printf("%d\n",ft_printf("%-1d\n", 12));	
+	//printf("%d\n",printf("%5d\n", 12));	
+	printf("%d\n",printf("%-1d\n", 12));	
 	return (0);
 }
 // printf("flags: %c\twidth: %d\tprecision: %d", ind->flag, ind->width, ind->precision);

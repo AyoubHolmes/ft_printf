@@ -26,5 +26,5 @@ int		char_handler(va_list *ap, format_preciser *ind)
 		if (ind->width > 1)
 			help_printer(' ', ind->width - 1);
 	}
-	return (1);
+	return (ind->width);
 }
