@@ -21,7 +21,7 @@ typedef struct
     char	flag;
 	int		width;
     int		precision;
-	int		point_existence;
+	int		star_existence;
 } format_preciser;
 // ------------------------Helpers------------------------------
 int		ft_strlen(const char *s);

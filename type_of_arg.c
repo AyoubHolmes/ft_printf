@@ -35,12 +35,20 @@ void    precision(int *k, format_preciser *ind, const char *d)
     int i;
 
     i = *k;
-    while (ft_isdigit(d[i]))
-	{
-        ind->precision =  ind->precision * 10 + (d[i] - '0');
+    if(d[i] == '*')
+    {
+        ind->star_existence = 1;
         i++;
     }
-    *k = i;
+    else
+    {
+        while (ft_isdigit(d[i]))
+	    {
+            ind->precision =  ind->precision * 10 + (d[i] - '0');
+            i++;
+        }
+    }
+     *k = i;
 }
 
 int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)

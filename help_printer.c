@@ -14,6 +14,9 @@
 
 void    help_printer(char c, int i)
 {
-	while(i--)
-		ft_putchar_fd(c , 1);
+	if (i > 0)
+	{
+		while(i--)
+			ft_putchar_fd(c , 1);
+	}
 }
