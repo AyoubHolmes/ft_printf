@@ -20,13 +20,21 @@ void    width(int *k, format_preciser *ind, const char *d)
     int i;
 
     i = *k;
-    if (d[i] == '-')
-            i++;
-    while(d[i] != '.' && ft_isdigit(d[i]))
-	{
-        ind->width =  ind->width * 10 + (d[i] - '0');
+    if(d[i] == '*')
+    {
+        ind->star_existence_width = 1;
         i++;
-	}
+    }
+    else
+    {
+        if (d[i] == '-')
+            i++;
+        while(d[i] != '.' && ft_isdigit(d[i]))
+	    {
+            ind->width =  ind->width * 10 + (d[i] - '0');
+            i++;
+	    }
+    }
     if (d[i] == '.')
 	    i++;
     *k = i;
@@ -39,7 +47,7 @@ void    precision(int *k, format_preciser *ind, const char *d)
     i = *k;
     if(d[i] == '*')
     {
-        ind->star_existence = 1;
+        ind->star_existence_precision = 1;
         i++;
     }
     else

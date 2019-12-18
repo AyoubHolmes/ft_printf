@@ -16,7 +16,7 @@ int    help_printer(char c, int i)
 {
 	int j;
 
-	j = i;
+	j = i > 0 ? i : 0;
 	if (i > 0)
 	{
 		while(i--)

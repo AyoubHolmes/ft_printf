@@ -21,7 +21,8 @@ typedef struct
     char	flag;
 	int		width;
     int		precision;
-	int		star_existence;
+	int		star_existence_precision;
+    int		star_existence_width;
 }   format_preciser;
 
 /*

@@ -42,7 +42,7 @@ int		unsigned_precision_handler(format_preciser *ind, char *integer, int arg)
 	int length;
 
 	length = ft_strlen(integer);
-	if(ind->star_existence != 1)
+	if(ind->star_existence_precision != 1)
 	{
 		help_printer('0', ind->precision - length);
 		ft_putstr_fd(integer, 1);
@@ -61,7 +61,7 @@ int		unsigned_intermediaire(format_preciser *ind, char *integer, int arg)
 {
 	int length;
 
-	if(ind->precision < ind->width && ind->star_existence != 1)
+	if(ind->precision < ind->width && ind->star_existence_precision != 1)
 	{
 		if (ind->flag == '-')
 		{
@@ -86,7 +86,7 @@ int		unsigned_int_handler(va_list *ap, format_preciser *ind)
 	int arg;
 	unsigned int i;
 
-	if(ind->star_existence == 1)
+	if(ind->star_existence_precision == 1)
 	{
 		arg = va_arg(*ap, int);
 	}
