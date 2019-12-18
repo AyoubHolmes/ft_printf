@@ -18,7 +18,8 @@ int	width_handler(format_preciser *ind, char *integer, int i)
 	int	param;
 
 	length = i > 0 ? ft_strlen(integer) : ft_strlen(integer) + 1;
-	param = ind->precision > length ? ind->precision: length;
+	param = ind->precision > length ? (i > 0 ? ind->precision : \
+										ind->precision + 1) : length;
 	if (ind->width > length)
 	{
 		if (ind->flag == '0')
@@ -41,8 +42,8 @@ int		precision_handler(format_preciser *ind, char *integer, int arg, int i)
 	int length;
 	int results;
 
-	length = i < 0 ? ft_strlen(integer) + 1 : ft_strlen(integer);
-	results = i < 0  && ind->precision > ind->width ? ft_putchar_fd('-', 1) : 0;
+	length = ft_strlen(integer);
+	results = ind->precision > ind->width ? ft_putchar_fd('-', 1) : 0;
 	if(ind->star_existence != 1)
 	{
 		results = help_printer('0', ind->precision - length);
