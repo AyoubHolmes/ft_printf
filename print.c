@@ -29,8 +29,8 @@ int	print(const char *format, va_list *ap)
 			c += controller(ap, j, &flag_indecator);
 		else
 		{
-			c++;
-			write(1, &format[i], 1);
+			c += ft_putchar_fd(format[i], 1);
+			// write(1, &format[i], 1);
 		}
 		i++;
 	}

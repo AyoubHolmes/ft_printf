@@ -20,6 +20,8 @@ void    width(int *k, format_preciser *ind, const char *d)
     int i;
 
     i = *k;
+    if (d[i] == '-')
+            i++;
     while(d[i] != '.' && ft_isdigit(d[i]))
 	{
         ind->width =  ind->width * 10 + (d[i] - '0');
@@ -42,6 +44,8 @@ void    precision(int *k, format_preciser *ind, const char *d)
     }
     else
     {
+        if (d[i] == '-')
+            i++;
         while (ft_isdigit(d[i]))
 	    {
             ind->precision =  ind->precision * 10 + (d[i] - '0');
@@ -75,6 +79,7 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
         inter +=k;
         *idx = inter;
         *count = counter_helper;
+        return (is_a_conversion(d[k]));
     }
-    return (is_a_conversion(d[k]));
+    return (-1);
 }

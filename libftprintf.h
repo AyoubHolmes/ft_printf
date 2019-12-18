@@ -22,10 +22,10 @@ typedef struct
 	int		width;
     int		precision;
 	int		star_existence;
-} format_preciser;
+}   format_preciser;
 
 /*
-** ------------------------Helpers------------------------------
+** ------------------------ Helpers ------------------------------
 */
 
 int		ft_strlen(const char *s);
@@ -34,19 +34,18 @@ char	*ft_itoa(int n);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_printf(const char *s, ...);
 char	*ft_strdup(const char *s1);
-char	*ft_add(const char *s1, char c);
-void	ft_putstr_fd(char *s, int fd);
+int     ft_putstr_fd(char *s, int fd);
 int		ft_isdigit(int c);
 int		is_a_flag(char d, format_preciser *a);
 int		is_a_conversion(char d);
 int		controller(va_list *ap, int conversion, format_preciser *indicator);
 int		print(const char *format, va_list *ap);
-void	ft_putchar_fd(char c, int fd);
+int     ft_putchar_fd(char c, int fd);
 char	*ft_uitoa(unsigned int nb);
-void    help_printer(char c, int i);
+int     help_printer(char c, int i);
 
 /* 
-** ------------------------Handlers-----------------------------
+** ------------------------ Handlers -----------------------------
 */
 
 int		char_handler(va_list *ap, format_preciser *indicator);
@@ -59,9 +58,8 @@ int     pointer_handler(va_list *ap, format_preciser *indicator);
 int		percentage_handler(format_preciser *indicator);
 
 /* 
-** --------------------------Printf-----------------------------
+** -------------------------- Printf -----------------------------
 */
-
 int		ft_printf(const char *format, ...);
 
 #endif
