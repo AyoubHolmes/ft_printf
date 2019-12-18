@@ -38,8 +38,12 @@ int		main(int c, char **arg)
 	//ft_printf("%d\n",ft_printf("%-1d\n", 12));	
 	// printf("%d\n",printf("%5d\n", 12));	
 	 //printf("%d\n",printf("%-1d\n", 12));	
-	printf("%d \n",ft_printf("%-3.6d\n", -23));
-	printf("%d \n",printf("%-3.6d\n", -23));
+	//printf("%d \n",ft_printf("%-3.6d\n", -23));
+	printf("%d\n", printf("%8d\n", 12345));
+	printf("%d\n",ft_printf("%8d\n", 12345));
+	/* printf("%8.9d\n", 12345);
+	ft_printf("%8.9d\n", 12345); */
+	// printf("%.*d\n", 5, 12);
+	//printf("%d \n",printf("%-3.6d\n", -23));
 	return (0);
 }
-// printf("flags: %c\twidth: %d\tprecision: %d", ind->flag, ind->width, ind->precision);

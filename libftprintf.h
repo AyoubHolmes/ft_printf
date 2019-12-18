@@ -23,7 +23,11 @@ typedef struct
     int		precision;
 	int		star_existence;
 } format_preciser;
-// ------------------------Helpers------------------------------
+
+/*
+** ------------------------Helpers------------------------------
+*/
+
 int		ft_strlen(const char *s);
 int		type_of_arg(const char *d, int *i, format_preciser *indicator, int *counter);
 char	*ft_itoa(int n);
@@ -40,7 +44,11 @@ int		print(const char *format, va_list *ap);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_uitoa(unsigned int nb);
 void    help_printer(char c, int i);
-// ------------------------Handlers------------------------------
+
+/* 
+** ------------------------Handlers-----------------------------
+*/
+
 int		char_handler(va_list *ap, format_preciser *indicator);
 int		string_handler(va_list *ap, format_preciser *indicator);
 int		int_handler(va_list *ap, format_preciser *indicator);
@@ -49,5 +57,11 @@ int     hexa_majuscule_handler(va_list *ap, format_preciser *indicator);
 int     hexa_minuscule_handler(va_list *ap, format_preciser *indicator);
 int     pointer_handler(va_list *ap, format_preciser *indicator);
 int		percentage_handler(format_preciser *indicator);
+
+/* 
+** --------------------------Printf-----------------------------
+*/
+
+int		ft_printf(const char *format, ...);
 
 #endif
