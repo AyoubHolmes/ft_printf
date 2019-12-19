@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_a_flag.c                                        :+:      :+:    :+:   */
+/*   initilizer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulbaz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 22:17:52 by aboulbaz          #+#    #+#             */
-/*   Updated: 2019/12/02 22:17:53 by aboulbaz         ###   ########.fr       */
+/*   Created: 2019/12/19 01:07:55 by aboulbaz          #+#    #+#             */
+/*   Updated: 2019/12/19 01:07:56 by aboulbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-// %[flags][width][.precision]specifier
-// flags = -,0, *, minimum field 
-// width = integer
-// precision = .integer
-
-int is_a_flag(char d, format_preciser *a)
+void	initilizer(format_preciser *ind, va_list *ap)
 {
-	if((d == '-' || d == '0') && !a->flag)
-	{
-		
-		a->flag = d;
-		return(1);
-	}
-	return (0);
+	int j;
+
+	if (ind->star_existence_width == 1)
+		ind->width = va_arg(*ap, int);
+	if (ind->star_existence_precision == 1)
+		ind->precision = va_arg(*ap, int);
 }

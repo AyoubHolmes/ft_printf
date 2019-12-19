@@ -15,6 +15,8 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <limits.h>
+#include <stdio.h>
 
 typedef struct 
 {
@@ -44,6 +46,8 @@ int		print(const char *format, va_list *ap);
 int     ft_putchar_fd(char c, int fd);
 char	*ft_uitoa(unsigned int nb);
 int     help_printer(char c, int i);
+void	initilizer(format_preciser *ind, va_list *ap);
+int		precision_handler(format_preciser *ind, char *integer);
 
 /* 
 ** ------------------------ Handlers -----------------------------
@@ -57,10 +61,12 @@ int     hexa_majuscule_handler(va_list *ap, format_preciser *indicator);
 int     hexa_minuscule_handler(va_list *ap, format_preciser *indicator);
 int     pointer_handler(va_list *ap, format_preciser *indicator);
 int		percentage_handler(format_preciser *indicator);
+int     width_handler(format_preciser *ind, char *integer, int i);
 
 /* 
 ** -------------------------- Printf -----------------------------
 */
+
 int		ft_printf(const char *format, ...);
 
 #endif

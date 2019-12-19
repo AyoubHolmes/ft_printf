@@ -74,12 +74,12 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
     k = 1;
     if(d[0] == '%')
     {
-        while(d[k] == ' ')
+       /*  while(d[k] == ' ')
         {
             ft_putchar_fd(' ', 1);
             counter_helper++;
             k++;
-        }
+        } */
         if (is_a_flag(d[k], ind))
             k++;
         width(&k, ind, d);

@@ -12,16 +12,27 @@
 
 #include "libftprintf.h"
 
+void struct_initializer(format_preciser *ind)
+{
+	ind->flag = '\0';
+	ind->precision = 0;
+	ind->width = 0;
+	ind->star_existence_precision = 0;
+	ind->star_existence_width = 0;
+}
+
 int	print(const char *format, va_list *ap)
 {
 	int		j;
 	int		i;
 	int		c;
 	char	*type;
-	format_preciser	flag_indecator = { '\0', 0, 0, 0 };
+	format_preciser	flag_indecator;
 
 	i = 0;
 	c = 0;
+	struct_initializer(&flag_indecator);
+	// printf("flag: %c\n", flag_indecator.flag);
 	//if(!Error_handler_function) {
 	while (format[i] != '\0')
 	{
