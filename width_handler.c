@@ -16,21 +16,24 @@ int	width_handler(format_preciser *ind, char *integer, int i)
 {
 	int length;
 	int	param;
+    int extraval;
 
+    extraval = i < 0 ? 1 : 0;
 	length = i >= 0 ? ft_strlen(integer) : ft_strlen(integer) + 1;
 	param = ind->precision > length ? ind->precision : length;
 	if (ind->width > length)
 	{
-		if (ind->flag == '0' && ind->precision == 0)
+		if (ind->flag == '0' && ind->point_existence == 0)
 		{
 			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
 			length += help_printer('0', ind->width - param);
 		}
-		else
-		{
-			length = help_printer(' ', ind->width - param);
+        else
+        {
+            length = help_printer(' ', ind->width - param - extraval);
 			length += i < 0 ? ft_putchar_fd('-', 1) : 0;
-		}
+        }
+        
 	}
 	return (length);
 }

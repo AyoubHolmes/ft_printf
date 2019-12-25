@@ -25,6 +25,7 @@ typedef struct
     int		precision;
 	int		star_existence_precision;
     int		star_existence_width;
+    int     point_existence;
 }   format_preciser;
 
 /*

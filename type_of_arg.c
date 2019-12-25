@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <stdio.h>
-
 //%[flags][width][.precision]specifier
 
 void    width(int *k, format_preciser *ind, const char *d)
@@ -36,7 +34,11 @@ void    width(int *k, format_preciser *ind, const char *d)
 	    }
     }
     if (d[i] == '.')
-	    i++;
+    {
+        ind->point_existence = 1;
+        i++;
+    }
+
     *k = i;
 }
 
@@ -52,8 +54,6 @@ void    precision(int *k, format_preciser *ind, const char *d)
     }
     else
     {
-        if (d[i] == '-')
-            i++;
         while (ft_isdigit(d[i]))
 	    {
             ind->precision =  ind->precision * 10 + (d[i] - '0');
@@ -74,12 +74,6 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
     k = 1;
     if(d[0] == '%')
     {
-       /*  while(d[k] == ' ')
-        {
-            ft_putchar_fd(' ', 1);
-            counter_helper++;
-            k++;
-        } */
         if (is_a_flag(d[k], ind))
             k++;
         width(&k, ind, d);

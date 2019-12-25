@@ -1,8 +1,9 @@
 #include "libftprintf.h"
 
-#define TEST "%011.5d\n", -5
+#define TEST "%5.3d\n",-1111
 
 int main() {
-    ft_printf(TEST);
-    printf(TEST);
+    int a = ft_printf(TEST);
+    int b = printf(TEST);
+    printf("%d %d", a, b);
 }

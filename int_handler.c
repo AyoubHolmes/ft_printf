@@ -12,12 +12,38 @@
 
 #include "libftprintf.h"
 
-int		precision_handler(format_preciser *ind, char *integer)
+int	width_handler(format_preciser *ind, char *integer, int i)
+{
+	int length;
+	int	param;
+    int extraval;
+
+    extraval = i < 0 ? 1 : 0;
+	length = i >= 0 ? ft_strlen(integer) : ft_strlen(integer) + 1;
+	param = ind->precision > length ? ind->precision : length;
+	if (ind->width > length)
+	{
+		if (ind->flag == '0' && ind->point_existence == 0)
+		{
+			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
+			length += help_printer('0', ind->width - param);
+		}
+        else
+        {
+            length = help_printer(' ', ind->width - param - extraval);
+			length += i < 0 ? ft_putchar_fd('-', 1) : 0;
+        }
+        
+	}
+	return (length);
+}
+
+int		precision_handler(format_preciser *ind, char *integer, int i)
 {
 	int length;
 	int results;
 
-	length = ft_strlen(integer);
+	length = i < 0 ? ft_strlen(integer) + 1 : ft_strlen(integer);
 	results = help_printer('0', ind->precision - length);
 	if (integer[0] == '0')
 	{
@@ -39,15 +65,13 @@ int		middle_function(format_preciser *ind, char *integer, int i)
 	{
 		if (ind->flag == '-')
 		{
-			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
-			length += precision_handler(ind, integer);
+			length += precision_handler(ind, integer, i);
 			length += width_handler(ind, integer, i);
 		}
 		else
 		{
 			length = width_handler(ind, integer, i);
 			length += precision_handler(ind, integer);
-		}
 	}
 	else
 	{
@@ -66,16 +90,12 @@ int		int_handler(va_list *ap, format_preciser *ind)
 	length = 0;
 	initilizer(ind, ap);
 	i = va_arg(*ap, int);
-	if (i != INT_MIN)
-		integer = ft_itoa(i < 0 ? -i : i);
-	else
-		integer = ft_uitoa(INT_MIN);
+	integer = ft_uitoa(i < 0 ? -i  : i);
 	if (ind->width == 0 && ind->precision == 0)
 	{
 		if (i < 0)
 			length = ft_putchar_fd('-', 1);
-		else if(i > 0)
-			length += ft_putstr_fd(integer, 1);
+		length += ft_putstr_fd(integer, 1);
 	}
 	else
 		length = middle_function(ind, integer, i);

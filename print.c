@@ -19,6 +19,7 @@ void struct_initializer(format_preciser *ind)
 	ind->width = 0;
 	ind->star_existence_precision = 0;
 	ind->star_existence_width = 0;
+	ind->point_existence = 0;
 }
 
 int	print(const char *format, va_list *ap)
