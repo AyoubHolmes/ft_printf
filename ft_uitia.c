@@ -12,10 +12,10 @@
 
 #include "libftprintf.h"
 
-static unsigned int		size_unsigned_int(unsigned int n)
+static int		size_unsigned_int(unsigned int n)
 {
-	unsigned int i;
-	unsigned int temp;
+	int				i;
+	unsigned int	temp;
 
 	temp = n;
 	i = 0;
@@ -24,18 +24,20 @@ static unsigned int		size_unsigned_int(unsigned int n)
 		temp /= 10;
 		i++;
 	}
-	return (i);
+	return (n == 0 ? 1 : i);
 }
 
 char					*ft_uitoa(unsigned int nb)
 {
-	unsigned int		i;
-	char				*nbr;
+	int		i;
+	char	*nbr;
 
 	i = size_unsigned_int(nb);
 	if (!(nbr = (char*)malloc(i + 1)))
 		return (0);
 	nbr[i] = 0;
+	if (nb == 0)
+		nbr[0] = '0';
 	while (nb != 0)
 	{
 		i--;

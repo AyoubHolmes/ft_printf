@@ -12,52 +12,63 @@
 
 #include "libftprintf.h"
 
-int	width_handler(format_preciser *ind, char *integer, int i)
+void	i_initilizer(format_preciser *ind, va_list *ap)
 {
-	int length;
-	int	param;
-    int extraval;
+	int j;
 
-    extraval = i < 0 ? 1 : 0;
-	length = i >= 0 ? ft_strlen(integer) : ft_strlen(integer) + 1;
+	if (ind->star_existence_width == 1)
+	{
+		ind->width = va_arg(*ap, int);
+		if(ind->width < 0)
+		{
+			ind->flag = '-';
+			ind->width *= -1;
+		}
+	}
+	if (ind->star_existence_precision == 1)
+	{
+		ind->precision = va_arg(*ap, int);
+		if (ind->precision < 0)
+			ind->precision = 0;
+	}
+}
+
+int	i_width_handler(format_preciser *ind, char *integer, int i, int length, int extraval)
+{
+	int	param;
+
 	param = ind->precision > length ? ind->precision : length;
-	if (ind->width > length)
+	if (ind->width > length + extraval)
 	{
 		if (ind->flag == '0' && ind->point_existence == 0)
 		{
 			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
 			length += help_printer('0', ind->width - param);
 		}
-        else
-        {
+		else
+		{
             length = help_printer(' ', ind->width - param - extraval);
 			length += i < 0 ? ft_putchar_fd('-', 1) : 0;
-        }
+		}
         
 	}
+	else
+		length = i < 0 ? ft_putchar_fd('-', 1) : 0;	
 	return (length);
 }
 
-int		precision_handler(format_preciser *ind, char *integer, int i)
+int		i_precision_handler(format_preciser *ind, char *integer, int i)
 {
 	int length;
 	int results;
 
-	length = i < 0 ? ft_strlen(integer) + 1 : ft_strlen(integer);
+	length = ft_strlen(integer);
 	results = help_printer('0', ind->precision - length);
-	if (integer[0] == '0')
-	{
-		if (ind->precision == 0)
-			results += ft_putchar_fd(' ', 1);
-		else
-			results += ft_putchar_fd(0, 1);
-	}
-	else
-		results += ft_putstr_fd(integer, 1);
+	results += ft_putstr_fd(integer, 1);
 	return (results);
 }
 
-int		middle_function(format_preciser *ind, char *integer, int i)
+int		i_middle_function(format_preciser *ind, char *integer, int i)
 {
 	int length;
 
@@ -65,18 +76,21 @@ int		middle_function(format_preciser *ind, char *integer, int i)
 	{
 		if (ind->flag == '-')
 		{
-			length += precision_handler(ind, integer, i);
-			length += width_handler(ind, integer, i);
+			length = i_precision_handler(ind, integer, i);
+			length += i_width_handler(ind, integer, i, ft_strlen(integer), \
+						i < 0 ? 1 : 0);
 		}
 		else
 		{
-			length = width_handler(ind, integer, i);
-			length += precision_handler(ind, integer);
+			length = i_width_handler(ind, integer, i, ft_strlen(integer), \
+						i < 0 ? 1 : 0);
+			length += i_precision_handler(ind, integer, i);
+		}
 	}
 	else
 	{
 		length = i < 0 ? ft_putchar_fd('-', 1) : 0;
-		length += precision_handler(ind, integer);	
+		length += i_precision_handler(ind, integer, i);	
 	}
 	return (length);
 }
@@ -88,9 +102,16 @@ int		int_handler(va_list *ap, format_preciser *ind)
 	int i;
 
 	length = 0;
-	initilizer(ind, ap);
+	i_initilizer(ind, ap);
+	if(ind->precision < 0)
+	{
+		ind->width = ind->precision;
+		ind->flag = '-';
+		ind->precision = 0;
+	}
 	i = va_arg(*ap, int);
-	integer = ft_uitoa(i < 0 ? -i  : i);
+	integer = ft_uitoa(i <= 0 ? -i  : i);
+	// printf("s= |%s| d = |%d|\n", integer, i);
 	if (ind->width == 0 && ind->precision == 0)
 	{
 		if (i < 0)
@@ -98,7 +119,7 @@ int		int_handler(va_list *ap, format_preciser *ind)
 		length += ft_putstr_fd(integer, 1);
 	}
 	else
-		length = middle_function(ind, integer, i);
+		length = i_middle_function(ind, integer, i);
 	free(integer);
 	return (length);
 }

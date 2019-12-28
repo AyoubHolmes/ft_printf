@@ -47,8 +47,6 @@ int		print(const char *format, va_list *ap);
 int     ft_putchar_fd(char c, int fd);
 char	*ft_uitoa(unsigned int nb);
 int     help_printer(char c, int i);
-void	initilizer(format_preciser *ind, va_list *ap);
-int		precision_handler(format_preciser *ind, char *integer);
 
 /* 
 ** ------------------------ Handlers -----------------------------
