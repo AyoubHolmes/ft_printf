@@ -33,8 +33,6 @@ int	print(const char *format, va_list *ap)
 	i = 0;
 	c = 0;
 	struct_initializer(&flag_indecator);
-	// printf("flag: %c\n", flag_indecator.flag);
-	//if(!Error_handler_function) {
 	while (format[i] != '\0')
 	{
 		if ((j = type_of_arg(&format[i], &i, &flag_indecator, &c)) != -1)
@@ -42,10 +40,8 @@ int	print(const char *format, va_list *ap)
 		else
 		{
 			c += ft_putchar_fd(format[i], 1);
-			// write(1, &format[i], 1);
 		}
 		i++;
 	}
-	//}
 	return (c);
 }
