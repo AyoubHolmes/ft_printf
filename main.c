@@ -1,6 +1,6 @@
 #include "libftprintf.h"
 
-#define TEST1 "this % d number\n", -267
+/* #define TEST1 "this % d number\n", -267
 #define TEST2 "% d\n", -1
 #define TEST3 "% 7d\n", 33
 #define TEST4 "% 7d\n", -14
@@ -27,11 +27,11 @@
 #define TEST25 "% -8.5d", 34
 #define TEST26 "% -10.5d", -216
 #define TEST27 "% -8.5d", 0
-#define TEST28 "% -8.3d", 8375
-#define TEST "%.0d\n", 0
+#define TEST28 "% -8.3d", 8375 */
+#define TEST "%d\n", 0
 
 int main(int ac, char *av[]) {
     int a = ft_printf(TEST);
     int b = printf(TEST);
-    printf("%d %d", b, a);
+    printf("%d-%d", b, a);
 }
