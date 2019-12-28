@@ -81,7 +81,7 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 		}
 	}
 	else
-		length += i_precision_handler(ind, integer, i);	
+		length = i_precision_handler(ind, integer, i);	
 	return (length);
 }
 

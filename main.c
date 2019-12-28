@@ -1,6 +1,6 @@
 #include "libftprintf.h"
 
-#define TEST "%-7d\n", -14
+#define TEST "%06.d\n", 54
 int main() {
     int a = ft_printf(TEST);
     int b = printf(TEST);
