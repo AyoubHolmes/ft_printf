@@ -79,8 +79,8 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
     {
         while (d[k] == ' ')
         {
+            ind->nbr_spaces++;
             k++;
-            *count += ft_putchar_fd(' ', 1);
         }
         if (is_a_flag(d[k], ind))
             k++;

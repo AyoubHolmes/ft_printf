@@ -62,7 +62,13 @@ int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_d
 	if (minus_done == 0 && i < 0)
 		results += ft_putchar_fd('-', 1);
 	results += help_printer('0', ind->precision - length);
-	results += ft_putstr_fd(integer, 1);
+	if (ind->precision == 0 && i == 0)
+	{
+		if(ind->width != 0)
+			results += ft_putchar_fd(' ', 1);
+	}
+	else
+		results += ft_putstr_fd(integer, 1);
 	return (results);
 }
 
@@ -77,21 +83,22 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 		ind->width *= -1;
 		ind->flag = '-';
 	}
+	length = help_printer(' ', ind->nbr_spaces - (i < 0 ? 1 : 0));
 	if(ind->precision < ind->width)
 	{
 		if (ind->flag == '-')
 		{
-			length = i_precision_handler(ind, integer, i, minus_done);
+			length += i_precision_handler(ind, integer, i, minus_done);
 			length += i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
 		}
 		else
 		{
-			length = i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
+			length += i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
 			length += i_precision_handler(ind, integer, i, minus_done);
 		}
 	}
 	else
-		length = i_precision_handler(ind, integer, i, minus_done);
+		length += i_precision_handler(ind, integer, i, minus_done);
 	return (length);
 }
 
@@ -115,6 +122,7 @@ int		int_handler(va_list *ap, format_preciser *ind)
 	{
 		if (i < 0)
 			length = ft_putchar_fd('-', 1);
+		length += help_printer(' ', ind->nbr_spaces - length);
 		length += ft_putstr_fd(integer, 1);
 	}
 	else
