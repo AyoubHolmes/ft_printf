@@ -12,21 +12,24 @@
 
 #include "libftprintf.h"
 
-static void		to_hexa(int n)
+void	Pointer_initilizer(format_preciser *ind, va_list *ap)
 {
-	if(n < 10)
-		ft_putchar_fd(n + '0', 1);
-	else
-		ft_putchar_fd('a' + n - 10, 1);
-}
-static void		pointer(long long int n)
-{
-	if (n / 16)
-		pointer(n / 16);
-	to_hexa(n%16);
+	if (ind->star_existence_width == 1)
+	{
+		ind->width = va_arg(*ap, int);
+		if(ind->width < 0)
+		{
+			ind->flag = '-';
+			ind->width *= -1;
+		}
+	}
+	if (ind->star_existence_precision == 1)
+		ind->precision = va_arg(*ap, int);
+	if(ind->precision < 0)
+			ind->precision = 0;
 }
 
-static int		size_pointer(long long int n)
+static int		size_hexa(long long int n)
 {
 	int i;
 
@@ -37,20 +40,107 @@ static int		size_pointer(long long int n)
 		n /= 16;
 	}
 	return (i);
-} 
-int     pointer_handler(va_list *ap, format_preciser *ind)
-{
-	long long int x;
+}
 
-	x = va_arg(*ap, long long int);
-	ft_putstr_fd("0x", 1);
-	if (ind->flag == '-')
+static void		to_hexa(long long int n)
+{
+	if(n < 10)
+		ft_putchar_fd(n + '0', 1);
+	else
+		ft_putchar_fd('A' + n - 10, 1);
+}
+
+static void		hexa(long long int n)
+{
+	if (n / 16)
+		hexa(n / 16);
+	to_hexa(n%16);
+}
+
+int		Pointer_width_handler(format_preciser *ind, long long int i)
+{
+	int	param;
+	int length;
+
+	param = ind->precision > size_hexa(i) ? ind->precision : size_hexa(i);
+	if (ind->flag == '0' && ind->point_existence == 0)
 	{
-		pointer(x);
+		length = ft_putstr_fd("0x", 1);
+		length += help_printer('0', ind->width - param - 2);
+	}
+	else
+        length = help_printer(' ', ind->width - param - 2);
+	return (length);
+}
+
+int		Pointer_precision_handler(format_preciser *ind, long long int i)
+{
+	int results;
+	int length;
+
+	length = size_hexa(i);
+	results = ind->flag != '0' || ind->point_existence != 0 \
+			? ft_putstr_fd("0x", 1) : 0;
+	results += help_printer('0', ind->precision - length);
+	if (ind->precision == 0 && i == 0)
+	{
+		if(ind->width != 0)
+			results += ft_putchar_fd(' ', 1);
 	}
 	else
 	{
-		pointer(x);
+		hexa(i);
+		results += length;
 	}
-	return (size_pointer(x) + 2/* + flag size */);
+	return (results);
+}
+
+int		Pointer_middle_function(format_preciser *ind, long long int i)
+{
+	int length;
+
+	if (ind->width < 0)
+	{
+		ind->width *= -1;
+		ind->flag = '-';
+	}
+	if(ind->precision < ind->width)
+	{
+		if (ind->flag == '-')
+		{
+			length = Pointer_precision_handler(ind, i);
+			length += Pointer_width_handler(ind, i);
+		}
+		else
+		{
+			length = Pointer_width_handler(ind, i);
+			length += Pointer_precision_handler(ind, i);
+		}
+	}
+	else
+		length = Pointer_precision_handler(ind, i);
+	return (length);
+}
+
+int     pointer_handler(va_list *ap, format_preciser *ind)
+{
+	long long int x;
+	int length;
+
+	Pointer_initilizer(ind, ap);
+	x = va_arg(*ap, long long int);
+	if (x == 0)
+	{
+		ft_putstr_fd("(null)", 1);
+		return(6);
+	}
+	if (ind->width == 0 && ind->point_existence == 0)
+	{
+		length = ft_putstr_fd("0x", 1);
+		hexa(x);
+		length += size_hexa(x);
+	}
+	else
+		length = Pointer_middle_function(ind, x);
+	return (length);
 }

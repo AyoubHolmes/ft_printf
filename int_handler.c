@@ -26,11 +26,9 @@ void	i_initilizer(format_preciser *ind, va_list *ap)
 		}
 	}
 	if (ind->star_existence_precision == 1)
-	{
 		ind->precision = va_arg(*ap, int);
-		if (ind->precision < 0)
-			ind->precision = 0;
-	}
+	if(ind->precision < 0)
+		ind->precision = 0;
 }
 
 int	i_width_handler(format_preciser *ind, char *integer, int i, int length, int *minus_done)
@@ -42,13 +40,13 @@ int	i_width_handler(format_preciser *ind, char *integer, int i, int length, int 
 	length = 0;
 	extraval = i < 0 ? 1 : 0;
 	if (ind->flag == '0' && ind->point_existence == 0)
-		{
-			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
-			*minus_done = i < 0 ? 1 : 0; 
-			length += help_printer('0', ind->width - param -extraval);
-		}
-		else
-            length = help_printer(' ', ind->width - param - extraval);
+	{
+		length = i < 0 ? ft_putchar_fd('-', 1) : 0;
+		*minus_done = i < 0 ? 1 : 0; 
+		length += help_printer('0', ind->width - param -extraval);
+	}
+	else
+        length = help_printer(' ', ind->width - param - extraval);
 	return (length);
 }
 
@@ -60,7 +58,7 @@ int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_d
 	results = 0;
 	length = ft_strlen(integer);
 	if (minus_done == 0 && i < 0)
-		results += ft_putchar_fd('-', 1);
+		results = ft_putchar_fd('-', 1);
 	results += help_printer('0', ind->precision - length);
 	if (ind->precision == 0 && i == 0)
 	{
@@ -83,22 +81,21 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 		ind->width *= -1;
 		ind->flag = '-';
 	}
-	length = help_printer(' ', ind->nbr_spaces - (i < 0 ? 1 : 0));
 	if(ind->precision < ind->width)
 	{
 		if (ind->flag == '-')
 		{
-			length += i_precision_handler(ind, integer, i, minus_done);
+			length = i_precision_handler(ind, integer, i, minus_done);
 			length += i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
 		}
 		else
 		{
-			length += i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
+			length = i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
 			length += i_precision_handler(ind, integer, i, minus_done);
 		}
 	}
 	else
-		length += i_precision_handler(ind, integer, i, minus_done);
+		length = i_precision_handler(ind, integer, i, minus_done);
 	return (length);
 }
 
@@ -110,19 +107,12 @@ int		int_handler(va_list *ap, format_preciser *ind)
 
 	length = 0;
 	i_initilizer(ind, ap);
-	if(ind->precision < 0)
-	{
-		ind->width = ind->precision;
-		ind->flag = '-';
-		ind->precision = 0;
-	}
 	i = va_arg(*ap, int);
-	integer = ft_uitoa(i <= 0 ? -i  : i);
+	integer = ft_uitoa(i <= 0 ? -i : i);
 	if (ind->width == 0 && ind->precision == 0 && ind->point_existence == 0)
 	{
 		if (i < 0)
 			length = ft_putchar_fd('-', 1);
-		length += help_printer(' ', ind->nbr_spaces - length);
 		length += ft_putstr_fd(integer, 1);
 	}
 	else

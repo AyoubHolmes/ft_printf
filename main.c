@@ -28,10 +28,10 @@
 #define TEST26 "% -10.5d", -216
 #define TEST27 "% -8.5d", 0
 #define TEST28 "% -8.3d", 8375 */
-#define TEST "%d\n", 0
+#define TEST "%p\n", 1 
 
 int main(int ac, char *av[]) {
-    int a = ft_printf(TEST);
-    int b = printf(TEST);
-    printf("%d-%d", b, a);
+    int a = ft_printf("%.d\n",0);
+    int b = printf("%10.100s\n","aazer");
+    printf("%d-%d\n", b, a);
 }
