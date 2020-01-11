@@ -6,13 +6,14 @@
 /*   By: aboulbaz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 18:18:14 by aboulbaz          #+#    #+#             */
-/*   Updated: 2019/12/11 18:18:16 by aboulbaz         ###   ########.fr       */
+/*   Updated: 2020/01/11 02:24:22 by aboulbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	i_width_handler(format_preciser *ind, int i, int length, int *minus_done)
+static int	i_width_handler(format_preciser *ind, int i, int length, \
+		int *minus_done)
 {
 	int	param;
 	int extraval;
@@ -23,15 +24,16 @@ int	i_width_handler(format_preciser *ind, int i, int length, int *minus_done)
 	if (ind->flag == '0' && ind->point_existence == 0)
 	{
 		length = i < 0 ? ft_putchar_fd('-', 1) : 0;
-		*minus_done = i < 0 ? 1 : 0; 
-		length += help_printer('0', ind->width - param -extraval);
+		*minus_done = i < 0 ? 1 : 0;
+		length += help_printer('0', ind->width - param - extraval);
 	}
 	else
-        length = help_printer(' ', ind->width - param - extraval);
+		length = help_printer(' ', ind->width - param - extraval);
 	return (length);
 }
 
-int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_done)
+static int	i_precision_handler(format_preciser *ind, char *integer, int i, \
+		int minus_done)
 {
 	int length;
 	int results;
@@ -40,10 +42,10 @@ int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_d
 	length = ft_strlen(integer);
 	if (minus_done == 0 && i < 0)
 		results = ft_putchar_fd('-', 1);
-	results += help_printer('0', ind->precision - length);
+	/* printf("%d %d\n", ind->width, ind->precision); */
 	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
-		if(ind->width != 0)
+		if (ind->width != 0)
 			results += ft_putchar_fd(' ', 1);
 	}
 	else
@@ -51,7 +53,7 @@ int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_d
 	return (results);
 }
 
-int		i_middle_function(format_preciser *ind, char *integer, int i)
+static int	i_middle_function(format_preciser *ind, char *integer, int i)
 {
 	int length;
 	int minus_done;
@@ -62,7 +64,7 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 		ind->width *= -1;
 		ind->flag = '-';
 	}
-	if(ind->precision < ind->width)
+	if (ind->precision < ind->width)
 	{
 		if (ind->flag == '-')
 		{
@@ -80,11 +82,11 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 	return (length);
 }
 
-int		int_handler(va_list *ap, format_preciser *ind)
+int			int_handler(va_list *ap, format_preciser *ind)
 {
-	char *integer;
-	int length;
-	int i;
+	char	*integer;
+	int		length;
+	int		i;
 
 	initializer(ind, ap);
 	i = va_arg(*ap, int);

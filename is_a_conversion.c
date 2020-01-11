@@ -14,21 +14,21 @@
 
 int		is_a_conversion(char d)
 {
-	if(d == 'd' || d == 'i')
+	if (d == 'd' || d == 'i')
 		return (1);
-	if(d == 'u')
+	if (d == 'u')
 		return (2);
-	if(d == 'c')
+	if (d == 'c')
 		return (3);
-	if(d == 's')
+	if (d == 's')
 		return (4);
-	if(d == 'x')
+	if (d == 'x')
 		return (5);
-	if(d == 'X')
+	if (d == 'X')
 		return (6);
-	if(d == 'p')
+	if (d == 'p')
 		return (7);
-	if(d == '%')
+	if (d == '%')
 		return (8);
 	return (-1);
 }

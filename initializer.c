@@ -17,7 +17,7 @@ void	initializer(format_preciser *ind, va_list *ap)
 	if (ind->star_existence_width == 1)
 	{
 		ind->width = va_arg(*ap, int);
-		if(ind->width < 0)
+		if (ind->width < 0)
 		{
 			ind->flag = '-';
 			ind->width *= -1;
@@ -25,6 +25,6 @@ void	initializer(format_preciser *ind, va_list *ap)
 	}
 	if (ind->star_existence_precision == 1)
 		ind->precision = va_arg(*ap, int);
-	if(ind->precision < 0)
-			ind->precision = 0;
+	if (ind->precision < 0)
+		ind->precision = 0;
 }

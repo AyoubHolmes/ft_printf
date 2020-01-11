@@ -41,7 +41,6 @@ int		ft_printf(const char *s, ...);
 char	*ft_strdup(const char *s1);
 int     ft_putstr_fd(char *s, int fd);
 int		ft_isdigit(int c);
-int		is_a_flag(char d, format_preciser *a);
 int		is_a_conversion(char d);
 int		controller(va_list *ap, int conversion, format_preciser *indicator);
 int		print(const char *format, va_list *ap);
