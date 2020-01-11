@@ -12,15 +12,15 @@
 
 #include "libftprintf.h"
 
-int    help_printer(char c, int i)
+int		help_printer(char c, int i)
 {
 	int j;
 
 	j = i > 0 ? i : 0;
 	if (i > 0)
 	{
-		while(i--)
-			ft_putchar_fd(c , 1);
+		while (i--)
+			ft_putchar_fd(c, 1);
 	}
 	return (j);
 }

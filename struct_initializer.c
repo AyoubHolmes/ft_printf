@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   struct_initializer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aboulbaz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/01 21:53:54 by aboulbaz          #+#    #+#             */
-/*   Updated: 2019/12/01 21:53:56 by aboulbaz         ###   ########.fr       */
+/*   Created: 2020/01/11 00:36:46 by aboulbaz          #+#    #+#             */
+/*   Updated: 2020/01/11 00:37:26 by aboulbaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char	*ft_strdup(const char *s1)
+void struct_initializer(format_preciser *ind)
 {
-	int		len;
-	int		i;
-	char	*s;
-
-	len = ft_strlen(s1);
-	if (!(s = (char*)malloc(sizeof(char) * (len + 2))))
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
+	ind->flag = '\0';
+	ind->precision = 0;
+	ind->width = 0;
+	ind->star_existence_precision = 0;
+	ind->star_existence_width = 0;
+	ind->point_existence = 0;
+	ind->nbr_spaces = 0;
 }

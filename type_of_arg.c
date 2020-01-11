@@ -15,9 +15,6 @@
 
 void    width(int *k, format_preciser *ind, const char *d)
 {
-    int i;
-
-    i = 1;
     if(d[*k] == '*')
     {
         ind->star_existence_width = 1;
@@ -25,23 +22,20 @@ void    width(int *k, format_preciser *ind, const char *d)
     }
     else
     {
-        if (d[*k] == '-')
+        if(d[*k] == '0')
+            ind->flag = '0';
+        ind->width = ft_atoi(&d[*k], k);
+        if (ind->width < 0)
         {
-            i = -1;
-            (*k)++;
+            ind->flag = '-';
+            ind->width *= -1;
         }
-        while(d[*k] != '.' && ft_isdigit(d[*k]))
-	    {
-            ind->width =  ind->width * 10 + (d[*k] - '0');
-            (*k)++;
-	    }
     }
     if (d[*k] == '.')
     {
         ind->point_existence = 1;
         (*k)++;
     }
-    ind->width *= i;
 }
 
 void    precision(int *k, format_preciser *ind, const char *d)
@@ -56,21 +50,17 @@ void    precision(int *k, format_preciser *ind, const char *d)
     }
     else
     {
-        if(d[*k] == '-')
+        ind->precision = ft_atoi(&d[*k], k);
+        if(ind->precision < 0)
         {
-            j = -1;
-            (*k)++;
+            ind->width = -1 * ind->precision;
+            ind->precision = 0;
+            ind->flag = '-';
         }
-        while (ft_isdigit(d[*k]))
-	    {
-            ind->precision =  ind->precision * 10 + (d[*k] - '0');
-            (*k)++;
-        }
-        ind->precision *= j;
     }
 }
 
-int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
+int		type_of_arg(const char *d, int *idx, format_preciser *ind)
 {
     int k;
 
@@ -82,8 +72,6 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind, int *count)
             ind->nbr_spaces++;
             k++;
         }
-        if (is_a_flag(d[k], ind))
-            k++;
         width(&k, ind, d);
         precision(&k, ind, d);
         *(idx) += k;

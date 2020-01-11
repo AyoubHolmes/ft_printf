@@ -12,28 +12,13 @@
 
 #include "libftprintf.h"
 
-void	x_initilizer(format_preciser *ind, va_list *ap)
-{
-	if (ind->star_existence_width == 1)
-	{
-		ind->width = va_arg(*ap, int);
-		if(ind->width < 0)
-		{
-			ind->flag = '-';
-			ind->width *= -1;
-		}
-	}
-	if (ind->star_existence_precision == 1)
-		ind->precision = va_arg(*ap, int);
-	if(ind->precision < 0)
-			ind->precision = 0;
-}
-
 static int		size_hexa(unsigned int n)
 {
 	int i;
 
 	i = 0;
+	if (n == 0)
+		return (1);
 	while(n !=0)
 	{
 		i++;
@@ -57,12 +42,13 @@ static void		hexa(unsigned int n)
 	to_hexa(n%16);
 }
 
-int		x_width_handler(format_preciser *ind, unsigned int i)
+int x_width_handler(format_preciser *ind, unsigned int x)
 {
 	int	param;
 	int length;
 
-	param = ind->precision > size_hexa(i) ? ind->precision : size_hexa(i);
+	length = size_hexa(x);
+	param = ind->precision > length ? ind->precision : length;
 	if (ind->flag == '0' && ind->point_existence == 0)
 		length = help_printer('0', ind->width - param);
 	else
@@ -70,27 +56,27 @@ int		x_width_handler(format_preciser *ind, unsigned int i)
 	return (length);
 }
 
-int		x_precision_handler(format_preciser *ind, unsigned int i)
+int	 x_precision_handler(format_preciser *ind, unsigned int x)
 {
-	int results;
 	int length;
+	int results;
 
-	length = size_hexa(i);
+	length = size_hexa(x);
 	results = help_printer('0', ind->precision - length);
-	if (ind->precision == 0 && i == 0)
+	if (ind->precision == 0 && ind->point_existence == 1 && x == 0)
 	{
 		if(ind->width != 0)
 			results += ft_putchar_fd(' ', 1);
 	}
 	else
 	{
-		hexa(i);
+		hexa(x);
 		results += length;
 	}
 	return (results);
 }
 
-int		x_middle_function(format_preciser *ind, unsigned int i)
+int	 x_middle_function(format_preciser *ind, unsigned int x)
 {
 	int length;
 
@@ -103,26 +89,26 @@ int		x_middle_function(format_preciser *ind, unsigned int i)
 	{
 		if (ind->flag == '-')
 		{
-			length = x_precision_handler(ind, i);
-			length += x_width_handler(ind, i);
+			length = x_precision_handler(ind, x);
+			length += x_width_handler(ind, x);
 		}
 		else
 		{
-			length = x_width_handler(ind, i);
-			length += x_precision_handler(ind, i);
+			length = x_width_handler(ind, x);
+			length += x_precision_handler(ind, x);
 		}
 	}
 	else
-		length = x_precision_handler(ind, i);
+		length = x_precision_handler(ind, x);
 	return (length);
 }
 
-int     hexa_minuscule_handler(va_list *ap, format_preciser *ind)
+int		hexa_minuscule_handler(va_list *ap, format_preciser *ind)
 {
+	int			length;
 	unsigned int x;
-	int length;
 
-	x_initilizer(ind, ap);
+ 	initializer(ind, ap);
 	x = va_arg(*ap, unsigned int);
 	if (ind->width == 0 && ind->point_existence == 0)
 	{

@@ -29,6 +29,6 @@ int		controller(va_list *ap, int conversion, format_preciser *indicator)
 	if (conversion == 7)
 		return (pointer_handler(ap, indicator));
 	if (conversion == 8)
-		return (percentage_handler(indicator));
+		return (percentage_handler(ap, indicator));
 	return (0);
 }

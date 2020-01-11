@@ -12,28 +12,13 @@
 
 #include "libftprintf.h"
 
-void	Pointer_initilizer(format_preciser *ind, va_list *ap)
-{
-	if (ind->star_existence_width == 1)
-	{
-		ind->width = va_arg(*ap, int);
-		if(ind->width < 0)
-		{
-			ind->flag = '-';
-			ind->width *= -1;
-		}
-	}
-	if (ind->star_existence_precision == 1)
-		ind->precision = va_arg(*ap, int);
-	if(ind->precision < 0)
-			ind->precision = 0;
-}
-
 static int		size_hexa(long long int n)
 {
 	int i;
 
 	i = 0;
+	if (n == 0)
+		return (1);
 	while(n !=0)
 	{
 		i++;
@@ -47,7 +32,7 @@ static void		to_hexa(long long int n)
 	if(n < 10)
 		ft_putchar_fd(n + '0', 1);
 	else
-		ft_putchar_fd('A' + n - 10, 1);
+		ft_putchar_fd('a' + n - 10, 1);
 }
 
 static void		hexa(long long int n)
@@ -62,7 +47,8 @@ int		Pointer_width_handler(format_preciser *ind, long long int i)
 	int	param;
 	int length;
 
-	param = ind->precision > size_hexa(i) ? ind->precision : size_hexa(i);
+	length = size_hexa(i);
+	param = ind->precision > length ? ind->precision: length;
 	if (ind->flag == '0' && ind->point_existence == 0)
 	{
 		length = ft_putstr_fd("0x", 1);
@@ -82,10 +68,10 @@ int		Pointer_precision_handler(format_preciser *ind, long long int i)
 	results = ind->flag != '0' || ind->point_existence != 0 \
 			? ft_putstr_fd("0x", 1) : 0;
 	results += help_printer('0', ind->precision - length);
-	if (ind->precision == 0 && i == 0)
+	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
 		if(ind->width != 0)
-			results += ft_putchar_fd(' ', 1);
+			ind->width = 0;
 	}
 	else
 	{
@@ -127,13 +113,8 @@ int     pointer_handler(va_list *ap, format_preciser *ind)
 	long long int x;
 	int length;
 
-	Pointer_initilizer(ind, ap);
+	initializer(ind, ap);
 	x = va_arg(*ap, long long int);
-	if (x == 0)
-	{
-		ft_putstr_fd("(null)", 1);
-		return(6);
-	}
 	if (ind->width == 0 && ind->point_existence == 0)
 	{
 		length = ft_putstr_fd("0x", 1);

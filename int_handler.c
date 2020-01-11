@@ -12,26 +12,7 @@
 
 #include "libftprintf.h"
 
-void	i_initilizer(format_preciser *ind, va_list *ap)
-{
-	int j;
-
-	if (ind->star_existence_width == 1)
-	{
-		ind->width = va_arg(*ap, int);
-		if(ind->width < 0)
-		{
-			ind->flag = '-';
-			ind->width *= -1;
-		}
-	}
-	if (ind->star_existence_precision == 1)
-		ind->precision = va_arg(*ap, int);
-	if(ind->precision < 0)
-		ind->precision = 0;
-}
-
-int	i_width_handler(format_preciser *ind, char *integer, int i, int length, int *minus_done)
+int	i_width_handler(format_preciser *ind, int i, int length, int *minus_done)
 {
 	int	param;
 	int extraval;
@@ -60,7 +41,7 @@ int		i_precision_handler(format_preciser *ind, char *integer, int i, int minus_d
 	if (minus_done == 0 && i < 0)
 		results = ft_putchar_fd('-', 1);
 	results += help_printer('0', ind->precision - length);
-	if (ind->precision == 0 && i == 0)
+	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
 		if(ind->width != 0)
 			results += ft_putchar_fd(' ', 1);
@@ -86,11 +67,11 @@ int		i_middle_function(format_preciser *ind, char *integer, int i)
 		if (ind->flag == '-')
 		{
 			length = i_precision_handler(ind, integer, i, minus_done);
-			length += i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
+			length += i_width_handler(ind, i, ft_strlen(integer), &minus_done);
 		}
 		else
 		{
-			length = i_width_handler(ind, integer, i, ft_strlen(integer), &minus_done);
+			length = i_width_handler(ind, i, ft_strlen(integer), &minus_done);
 			length += i_precision_handler(ind, integer, i, minus_done);
 		}
 	}
@@ -105,18 +86,18 @@ int		int_handler(va_list *ap, format_preciser *ind)
 	int length;
 	int i;
 
-	length = 0;
-	i_initilizer(ind, ap);
+	initializer(ind, ap);
 	i = va_arg(*ap, int);
+	length = 0;
 	integer = ft_uitoa(i <= 0 ? -i : i);
 	if (ind->width == 0 && ind->precision == 0 && ind->point_existence == 0)
 	{
 		if (i < 0)
-			length = ft_putchar_fd('-', 1);
+			length += ft_putchar_fd('-', 1);
 		length += ft_putstr_fd(integer, 1);
 	}
 	else
-		length = i_middle_function(ind, integer, i);
+		length += i_middle_function(ind, integer, i);
 	free(integer);
 	return (length);
 }

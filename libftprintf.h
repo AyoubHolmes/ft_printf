@@ -34,7 +34,7 @@ typedef struct
 */
 
 int		ft_strlen(const char *s);
-int		type_of_arg(const char *d, int *i, format_preciser *indicator, int *counter);
+int		type_of_arg(const char *d, int *i, format_preciser *indicator);
 char	*ft_itoa(int n);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_printf(const char *s, ...);
@@ -48,6 +48,9 @@ int		print(const char *format, va_list *ap);
 int     ft_putchar_fd(char c, int fd);
 char	*ft_uitoa(unsigned int nb);
 int     help_printer(char c, int i);
+int		ft_atoi(const char *str, int *k);
+void	initializer(format_preciser *ind, va_list *ap);
+void    struct_initializer(format_preciser *ind);
 
 /* 
 ** ------------------------ Handlers -----------------------------
@@ -60,8 +63,7 @@ int		unsigned_int_handler(va_list *ap, format_preciser *indicator);
 int     hexa_majuscule_handler(va_list *ap, format_preciser *indicator);
 int     hexa_minuscule_handler(va_list *ap, format_preciser *indicator);
 int     pointer_handler(va_list *ap, format_preciser *indicator);
-int		percentage_handler(format_preciser *indicator);
-int     width_handler(format_preciser *ind, char *integer, int i);
+int		percentage_handler(va_list *ap, format_preciser *indicator);
 
 /* 
 ** -------------------------- Printf -----------------------------

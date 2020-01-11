@@ -28,5 +28,7 @@ int		is_a_conversion(char d)
 		return (6);
 	if(d == 'p')
 		return (7);
+	if(d == '%')
+		return (8);
 	return (-1);
 }
