@@ -1,1 +1,1 @@
-gcc *.c && ./a.out | cat -e
+gcc  *.c && ./a.out 

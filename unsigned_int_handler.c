@@ -18,8 +18,14 @@ int	u_width_handler(format_preciser *ind, int length)
 
 	param = ind->precision > length ? ind->precision : length;
 	length = 0;
-	if (ind->flag == '0' && ind->point_existence == 0)
-		length += help_printer('0', ind->width - param);
+	if (ind->flag == '0')
+	{
+		if (ind->point_existence == 0 || (ind->precision < 0 \
+			&& ind->star_existence_precision == 1))
+			length += help_printer('0', ind->width - param);
+		else
+		length = help_printer(' ', ind->width - param);
+	}
 	else
         length = help_printer(' ', ind->width - param);
 	return (length);
@@ -35,7 +41,7 @@ int		u_precision_handler(format_preciser *ind, char *integer, unsigned int i)
 	results += help_printer('0', ind->precision - length);
 	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
-		if(ind->width != 0)
+		if (ind->width != 0)
 			results += ft_putchar_fd(' ', 1);
 	}
 	else

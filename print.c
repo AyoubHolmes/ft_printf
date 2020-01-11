@@ -14,9 +14,9 @@
 
 int	print(const char *format, va_list *ap)
 {
-	int		j;
-	int		i;
-	int		c;
+	int				j;
+	int				i;
+	int				c;
 	format_preciser	flag_indecator;
 
 	i = 0;

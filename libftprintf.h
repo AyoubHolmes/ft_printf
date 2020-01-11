@@ -15,20 +15,17 @@
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <limits.h>
-#include <stdio.h>
 
-typedef struct 
+typedef		struct 
 {
     char	flag;
 	int		width;
     int		precision;
 	int		star_existence_precision;
     int		star_existence_width;
-    int     point_existence;
-    int     nbr_spaces;
-}   format_preciser;
-
+    int		point_existence;
+    int		nbr_spaces;
+}			format_preciser;
 /*
 ** ------------------------ Helpers ------------------------------
 */
@@ -50,6 +47,11 @@ int     help_printer(char c, int i);
 int		ft_atoi(const char *str, int *k);
 void	initializer(format_preciser *ind, va_list *ap);
 void    struct_initializer(format_preciser *ind);
+int		size_hexa(unsigned int n);
+void	to_hexa_maj(unsigned int n);
+void	to_hexa_min(unsigned int n);
+void	hexa_maj(unsigned int n);
+void	hexa_min(unsigned int n);
 
 /* 
 ** ------------------------ Handlers -----------------------------

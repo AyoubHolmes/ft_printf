@@ -21,11 +21,17 @@ static int	i_width_handler(format_preciser *ind, int i, int length, \
 	param = ind->precision > length ? ind->precision : length;
 	length = 0;
 	extraval = i < 0 ? 1 : 0;
-	if (ind->flag == '0' && ind->point_existence == 0)
+	if (ind->flag == '0')
 	{
-		length = i < 0 ? ft_putchar_fd('-', 1) : 0;
-		*minus_done = i < 0 ? 1 : 0;
-		length += help_printer('0', ind->width - param - extraval);
+		if (ind->point_existence == 0 || (ind->precision < 0 \
+			&& ind->star_existence_precision == 1))
+		{
+			length = i < 0 ? ft_putchar_fd('-', 1) : 0;
+			*minus_done = i < 0 ? 1 : 0;
+			length += help_printer('0', ind->width - param - extraval);
+		}
+		else
+			length = help_printer(' ', ind->width - param - extraval);
 	}
 	else
 		length = help_printer(' ', ind->width - param - extraval);
@@ -42,7 +48,7 @@ static int	i_precision_handler(format_preciser *ind, char *integer, int i, \
 	length = ft_strlen(integer);
 	if (minus_done == 0 && i < 0)
 		results = ft_putchar_fd('-', 1);
-	/* printf("%d %d\n", ind->width, ind->precision); */
+	results += help_printer('0', ind->precision - length);
 	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
 		if (ind->width != 0)

@@ -24,7 +24,5 @@ void	initializer(format_preciser *ind, va_list *ap)
 		}
 	}
 	if (ind->star_existence_precision == 1)
-		ind->precision = va_arg(*ap, int);
-	if (ind->precision < 0)
-		ind->precision = 0;
+		ind->precision *= va_arg(*ap, int);
 }

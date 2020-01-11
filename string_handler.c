@@ -123,7 +123,7 @@ int		string_handler(va_list *ap, format_preciser *ind)
 	else
 	{
 		if (ind->width > lenght)
-			help_printer(' ', ind->width - lenght);
+			help_printer(ind->flag == '0' ? '0' : ' ', ind->width - lenght);
 		ft_putstr_fd(s, 1);
 	}
 	lenght = ind->width > lenght ? ind->width : lenght;

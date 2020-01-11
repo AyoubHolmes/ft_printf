@@ -42,36 +42,43 @@ static void		hexa(long long int n)
 	to_hexa(n%16);
 }
 
-int		Pointer_width_handler(format_preciser *ind, long long int i)
+int		Pointer_width_handler(format_preciser *ind, long long int i, int *xdone)
 {
 	int	param;
 	int length;
 
 	length = size_hexa(i);
 	param = ind->precision > length ? ind->precision: length;
-	if (ind->flag == '0' && ind->point_existence == 0)
+	if (ind->flag == '0')
 	{
-		length = ft_putstr_fd("0x", 1);
-		length += help_printer('0', ind->width - param - 2);
+		if (ind->point_existence == 0 || (ind->precision < 0 \
+			&& ind->star_existence_precision == 1))
+			{
+				*xdone = 1;
+				length = ft_putstr_fd("0x", 1);
+				length += help_printer('0', ind->width - param - 2);
+			}
+			
+		else
+		length = help_printer(' ', ind->width - param);
 	}
 	else
         length = help_printer(' ', ind->width - param - 2);
 	return (length);
 }
 
-int		Pointer_precision_handler(format_preciser *ind, long long int i)
+int		Pointer_precision_handler(format_preciser *ind, long long int i, int xdone)
 {
 	int results;
 	int length;
 
 	length = size_hexa(i);
-	results = ind->flag != '0' || ind->point_existence != 0 \
-			? ft_putstr_fd("0x", 1) : 0;
+	results = xdone == 0 ? ft_putstr_fd("0x", 1) : 0;
 	results += help_printer('0', ind->precision - length);
 	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
 	{
-		if(ind->width != 0)
-			ind->width = 0;
+		if (ind->width != 0)
+			results += ft_putchar_fd(' ', 1);
 	}
 	else
 	{
@@ -84,7 +91,9 @@ int		Pointer_precision_handler(format_preciser *ind, long long int i)
 int		Pointer_middle_function(format_preciser *ind, long long int i)
 {
 	int length;
+	int xdone;
 
+	xdone = 0;
 	if (ind->width < 0)
 	{
 		ind->width *= -1;
@@ -94,17 +103,17 @@ int		Pointer_middle_function(format_preciser *ind, long long int i)
 	{
 		if (ind->flag == '-')
 		{
-			length = Pointer_precision_handler(ind, i);
-			length += Pointer_width_handler(ind, i);
+			length = Pointer_precision_handler(ind, i, xdone);
+			length += Pointer_width_handler(ind, i, &xdone);
 		}
 		else
 		{
-			length = Pointer_width_handler(ind, i);
-			length += Pointer_precision_handler(ind, i);
+			length = Pointer_width_handler(ind, i, &xdone);
+			length += Pointer_precision_handler(ind, i, xdone);
 		}
 	}
 	else
-		length = Pointer_precision_handler(ind, i);
+		length = Pointer_precision_handler(ind, i, xdone);
 	return (length);
 }
 
