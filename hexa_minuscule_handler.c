@@ -12,7 +12,8 @@
 
 #include "libftprintf.h"
 
-int		x_width_handler(format_preciser *ind, unsigned int x)
+
+int x_width_handler(format_preciser *ind, unsigned int x)
 {
 	int	param;
 	int length;
@@ -25,14 +26,14 @@ int		x_width_handler(format_preciser *ind, unsigned int x)
 			&& ind->star_existence_precision == 1))
 			length = help_printer('0', ind->width - param);
 		else
-			length = help_printer(' ', ind->width - param);
+		length = help_printer(' ', ind->width - param);
 	}
 	else
-		length = help_printer(' ', ind->width - param);
+        length = help_printer(' ', ind->width - param);
 	return (length);
 }
 
-int		x_precision_handler(format_preciser *ind, unsigned int x)
+int	 x_precision_handler(format_preciser *ind, unsigned int x)
 {
 	int length;
 	int results;
@@ -52,7 +53,7 @@ int		x_precision_handler(format_preciser *ind, unsigned int x)
 	return (results);
 }
 
-int		x_middle_function(format_preciser *ind, unsigned int x)
+int	 x_middle_function(format_preciser *ind, unsigned int x)
 {
 	int length;
 
@@ -61,7 +62,7 @@ int		x_middle_function(format_preciser *ind, unsigned int x)
 		ind->width *= -1;
 		ind->flag = '-';
 	}
-	if (ind->precision < ind->width)
+	if(ind->precision < ind->width)
 	{
 		if (ind->flag == '-')
 		{
@@ -81,10 +82,10 @@ int		x_middle_function(format_preciser *ind, unsigned int x)
 
 int		hexa_minuscule_handler(va_list *ap, format_preciser *ind)
 {
-	int				length;
-	unsigned int	x;
+	int			length;
+	unsigned int x;
 
-	initializer(ind, ap);
+ 	initializer(ind, ap);
 	x = va_arg(*ap, unsigned int);
 	if (ind->width == 0 && ind->point_existence == 0)
 	{

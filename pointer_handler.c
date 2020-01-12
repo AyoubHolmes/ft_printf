@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int		size_hexa(long long int n)
+static int		size_hexa_pointer(long long int n)
 {
 	int i;
 
@@ -47,7 +47,7 @@ int		Pointer_width_handler(format_preciser *ind, long long int i, int *xdone)
 	int	param;
 	int length;
 
-	length = size_hexa(i);
+	length = size_hexa_pointer(i);
 	param = ind->precision > length ? ind->precision: length;
 	if (ind->flag == '0')
 	{
@@ -72,7 +72,7 @@ int		Pointer_precision_handler(format_preciser *ind, long long int i, int xdone)
 	int results;
 	int length;
 
-	length = size_hexa(i);
+	length = size_hexa_pointer(i);
 	results = xdone == 0 ? ft_putstr_fd("0x", 1) : 0;
 	results += help_printer('0', ind->precision - length);
 	if (ind->precision == 0 && ind->point_existence == 1 && i == 0)
@@ -128,7 +128,7 @@ int     pointer_handler(va_list *ap, format_preciser *ind)
 	{
 		length = ft_putstr_fd("0x", 1);
 		hexa(x);
-		length += size_hexa(x);
+		length += size_hexa_pointer(x);
 	}
 	else
 		length = Pointer_middle_function(ind, x);

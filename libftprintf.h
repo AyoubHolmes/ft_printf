@@ -26,10 +26,6 @@ typedef		struct
     int		point_existence;
     int		nbr_spaces;
 }			format_preciser;
-/*
-** ------------------------ Helpers ------------------------------
-*/
-
 int		ft_strlen(const char *s);
 int		type_of_arg(const char *d, int *i, format_preciser *indicator);
 char	*ft_itoa(int n);
@@ -48,15 +44,8 @@ int		ft_atoi(const char *str, int *k);
 void	initializer(format_preciser *ind, va_list *ap);
 void    struct_initializer(format_preciser *ind);
 int		size_hexa(unsigned int n);
-void	to_hexa_maj(unsigned int n);
-void	to_hexa_min(unsigned int n);
 void	hexa_maj(unsigned int n);
-void	hexa_min(unsigned int n);
-
-/* 
-** ------------------------ Handlers -----------------------------
-*/
-
+void		hexa_min(unsigned int n);
 int		char_handler(va_list *ap, format_preciser *indicator);
 int		string_handler(va_list *ap, format_preciser *indicator);
 int		int_handler(va_list *ap, format_preciser *indicator);
@@ -65,11 +54,6 @@ int     hexa_majuscule_handler(va_list *ap, format_preciser *indicator);
 int     hexa_minuscule_handler(va_list *ap, format_preciser *indicator);
 int     pointer_handler(va_list *ap, format_preciser *indicator);
 int		percentage_handler(va_list *ap, format_preciser *indicator);
-
-/* 
-** -------------------------- Printf -----------------------------
-*/
-
 int		ft_printf(const char *format, ...);
 
 #endif
