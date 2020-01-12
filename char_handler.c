@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		char_handler(va_list *ap, format_preciser *ind)
+int		char_handler(va_list *ap, t_format_preciser *ind)
 {
 	int length;
 
@@ -33,5 +33,6 @@ int		char_handler(va_list *ap, format_preciser *ind)
 		}
 		length += ft_putchar_fd(va_arg(*ap, int), 1);
 	}
+	struct_initializer(ind);
 	return (length);
 }

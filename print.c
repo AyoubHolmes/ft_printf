@@ -14,10 +14,10 @@
 
 int	print(const char *format, va_list *ap)
 {
-	int				j;
-	int				i;
-	int				c;
-	format_preciser	flag_indecator;
+	int					j;
+	int					i;
+	int					c;
+	t_format_preciser	flag_indecator;
 
 	i = 0;
 	c = 0;

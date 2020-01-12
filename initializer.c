@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-void	initializer(format_preciser *ind, va_list *ap)
+void	initializer(t_format_preciser *ind, va_list *ap)
 {
 	if (ind->star_existence_width == 1)
 	{

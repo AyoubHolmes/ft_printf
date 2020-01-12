@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int	u_width_handler(format_preciser *ind, int length)
+static int	u_width_handler(t_format_preciser *ind, int length)
 {
 	int	param;
 
@@ -24,14 +24,15 @@ int	u_width_handler(format_preciser *ind, int length)
 			&& ind->star_existence_precision == 1))
 			length += help_printer('0', ind->width - param);
 		else
-		length = help_printer(' ', ind->width - param);
+			length = help_printer(' ', ind->width - param);
 	}
 	else
-        length = help_printer(' ', ind->width - param);
+		length = help_printer(' ', ind->width - param);
 	return (length);
 }
 
-int		u_precision_handler(format_preciser *ind, char *integer, unsigned int i)
+static int	u_precision_handler(t_format_preciser *ind, \
+						char *integer, unsigned int i)
 {
 	int length;
 	int results;
@@ -49,7 +50,8 @@ int		u_precision_handler(format_preciser *ind, char *integer, unsigned int i)
 	return (results);
 }
 
-int		u_middle_function(format_preciser *ind, char *integer, unsigned int i)
+static int	u_middle_function(t_format_preciser *ind, \
+							char *integer, unsigned int i)
 {
 	int length;
 
@@ -58,7 +60,7 @@ int		u_middle_function(format_preciser *ind, char *integer, unsigned int i)
 		ind->width *= -1;
 		ind->flag = '-';
 	}
-	if(ind->precision < ind->width)
+	if (ind->precision < ind->width)
 	{
 		if (ind->flag == '-')
 		{
@@ -76,11 +78,11 @@ int		u_middle_function(format_preciser *ind, char *integer, unsigned int i)
 	return (length);
 }
 
-int		unsigned_int_handler(va_list *ap, format_preciser *ind)
+int			unsigned_int_handler(va_list *ap, t_format_preciser *ind)
 {
-	char *integer;
-	int length;
-	unsigned int i;
+	char			*integer;
+	int				length;
+	unsigned int	i;
 
 	initializer(ind, ap);
 	i = va_arg(*ap, unsigned int);
@@ -90,5 +92,6 @@ int		unsigned_int_handler(va_list *ap, format_preciser *ind)
 	else
 		length = u_middle_function(ind, integer, i);
 	free(integer);
+	struct_initializer(ind);
 	return (length);
 }

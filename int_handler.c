@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-static int	i_width_handler(format_preciser *ind, int i, int length, \
+static int	i_width_handler(t_format_preciser *ind, int i, int length, \
 		int *minus_done)
 {
 	int	param;
@@ -38,7 +38,7 @@ static int	i_width_handler(format_preciser *ind, int i, int length, \
 	return (length);
 }
 
-static int	i_precision_handler(format_preciser *ind, char *integer, int i, \
+static int	i_precision_handler(t_format_preciser *ind, char *integer, int i, \
 		int minus_done)
 {
 	int length;
@@ -59,7 +59,7 @@ static int	i_precision_handler(format_preciser *ind, char *integer, int i, \
 	return (results);
 }
 
-static int	i_middle_function(format_preciser *ind, char *integer, int i)
+static int	i_middle_function(t_format_preciser *ind, char *integer, int i)
 {
 	int length;
 	int minus_done;
@@ -88,7 +88,7 @@ static int	i_middle_function(format_preciser *ind, char *integer, int i)
 	return (length);
 }
 
-int			int_handler(va_list *ap, format_preciser *ind)
+int			int_handler(va_list *ap, t_format_preciser *ind)
 {
 	char	*integer;
 	int		length;
@@ -107,5 +107,6 @@ int			int_handler(va_list *ap, format_preciser *ind)
 	else
 		length += i_middle_function(ind, integer, i);
 	free(integer);
+	struct_initializer(ind);
 	return (length);
 }

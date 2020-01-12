@@ -12,89 +12,84 @@
 
 #include "libftprintf.h"
 
-void    width(int *k, format_preciser *ind, const char *d)
+static void	helper_width(int *k, t_format_preciser *ind, const char *d)
 {
-    int i;
+	int i;
 
-    i = *k;
-    while (d[*k] == '0' || d[*k] == '-')
-    {
-        if(d[*k] == '-')
-            ind->flag = '-';
-        (*k)++;
-    }
-    if(ind->flag == '\0' && i != *k)
-            ind->flag = '0';
-    if(d[*k] == '*')
-    {
-        ind->star_existence_width = 1;
-        (*k)++;
-    }
-    else
-    {
-        if(d[*k] == '0')
-            ind->flag = '0';
-        ind->width = ft_atoi(&d[*k], k);
-        if (ind->width < 0)
-        {
-            ind->flag = '-';
-            ind->width *= -1;
-        }
-    }
-    if (d[*k] == '.')
-    {
-        ind->point_existence = 1;
-        (*k)++;
-    }
+	i = *k;
+	while (d[*k] == '0' || d[*k] == '-')
+	{
+		if (d[*k] == '-')
+			ind->flag = '-';
+		(*k)++;
+	}
+	if (ind->flag == '\0' && i != *k)
+		ind->flag = '0';
 }
 
-void    precision(int *k, format_preciser *ind, const char *d)
+static void	width(int *k, t_format_preciser *ind, const char *d)
 {
-    int j;
-    int i;
-
-    j = 1;
-    i = *k;
-    ind->precision = 1;
-    while (d[*k] == '0' || d[*k] == '-')
-    {
-        if(d[*k] == '-')
-            ind->precision = -1;
-        (*k)++;
-    }
-    if(d[*k] == '*')
-    {
-        ind->star_existence_precision = 1;
-        (*k)++;
-    }
-    else
-    {
-        ind->precision *= ft_atoi(&d[*k], k);
-        if(ind->precision < 0)
-        {
-            ind->width = -1 * ind->precision;
-            ind->precision = 0;
-            ind->flag = '-';
-        }
-    }
+	helper_width(k, ind, d);
+	if (d[*k] == '*')
+	{
+		ind->star_existence_width = 1;
+		(*k)++;
+	}
+	else
+	{
+		if (d[*k] == '0')
+			ind->flag = '0';
+		ind->width = ft_atoi(&d[*k], k);
+		if (ind->width < 0)
+		{
+			ind->flag = '-';
+			ind->width *= -1;
+		}
+	}
+	if (d[*k] == '.')
+	{
+		ind->point_existence = 1;
+		(*k)++;
+	}
 }
 
-int		type_of_arg(const char *d, int *idx, format_preciser *ind)
+static void	precision(int *k, t_format_preciser *ind, const char *d)
 {
-    int k;
+	ind->precision = 1;
+	while (d[*k] == '0' || d[*k] == '-')
+	{
+		if (d[*k] == '-')
+			ind->precision = -1;
+		(*k)++;
+	}
+	if (d[*k] == '*')
+	{
+		ind->star_existence_precision = 1;
+		(*k)++;
+	}
+	else
+	{
+		ind->precision *= ft_atoi(&d[*k], k);
+		if (ind->precision < 0)
+		{
+			ind->width = -1 * ind->precision;
+			ind->precision = 0;
+			ind->flag = '-';
+		}
+	}
+}
 
-    k = 1;
-    if(d[0] == '%')
-    {
-        while (d[k] == ' ')
-        {
-            // ind->nbr_spaces++;
-            k++;
-        }
-        width(&k, ind, d);
-        precision(&k, ind, d);
-        *(idx) += k;
-        return (is_a_conversion(d[k]));
-    }
-    return (-1);
+int			type_of_arg(const char *d, int *idx, t_format_preciser *ind)
+{
+	int k;
+
+	k = 1;
+	if (d[0] == '%')
+	{
+		width(&k, ind, d);
+		precision(&k, ind, d);
+		*(idx) += k;
+		return (is_a_conversion(d[k]));
+	}
+	return (-1);
 }

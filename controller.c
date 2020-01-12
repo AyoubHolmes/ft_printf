@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-int		controller(va_list *ap, int conversion, format_preciser *indicator)
+int		controller(va_list *ap, int conversion, t_format_preciser *indicator)
 {
 	if (conversion == 1)
 		return (int_handler(ap, indicator));
