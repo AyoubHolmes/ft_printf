@@ -1,21 +1,21 @@
 #include "libftprintf.h"
-#define TEST "%0*.*d\n", 10, -4, 0
-// #define TEST "%15.p %15.x %15.X %15.u %*.d\n",&main,159, 0,105,5,10
+#define TEST "%0*.*d\n", 3, -4, 0
+// #define TEST "%15.p %15.x %15.X %15.u %*.d\n",&main,159, 0,35,5,3
 
 int main() {
-    int i,j,k;
-    int y,x;
-    i = -9;
-    while (i < 10)
+     int i,j,k;
+     int y,x;
+    i = -2;
+    while (i < 3)
     {
-        j = -9;
-        while (j < 10)
+        j = -2;
+        while (j < 3)
         {
-            k = -9;
-            while (k < 10)
+            k = -2;
+            while (k < 3)
             {
-                y = ft_printf("%0*.*p\n",i,j, &x);
-                x = printf("%0*.*p\n",i, j , &x);
+                y = ft_printf("%0*d\n",i,k);
+                x = printf("%0*d\n",i,k);
                 printf("\ninputs :%d %d %d\n",i,j, k);
                 printf("------------\n");
                 if (x != y)
@@ -31,7 +31,12 @@ int main() {
         }
         i++;
     }
-    printf("Great"); 
+    printf("Great");
+    /* y = ft_printf("%-5.p\n",0);
+                x = printf("%-5.p\n", 0);
+                printf("\ninputs :%d %d %d\n",5,5, 0);
+                printf("------------\n");
+    x == y ? printf("Great") : 0; */ 
     /* int a = ft_printf(TEST);;
     int b = printf(TEST); 
     printf("%d-%d\n", b, a);

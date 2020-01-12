@@ -20,5 +20,5 @@ void struct_initializer(format_preciser *ind)
 	ind->star_existence_precision = 0;
 	ind->star_existence_width = 0;
 	ind->point_existence = 0;
-	ind->nbr_spaces = 0;
+	// ind->nbr_spaces = 0;
 }

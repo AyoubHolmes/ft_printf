@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-//%[flags][width][.precision]specifier
 
 void    width(int *k, format_preciser *ind, const char *d)
 {
@@ -89,12 +88,11 @@ int		type_of_arg(const char *d, int *idx, format_preciser *ind)
     {
         while (d[k] == ' ')
         {
-            ind->nbr_spaces++;
+            // ind->nbr_spaces++;
             k++;
         }
         width(&k, ind, d);
         precision(&k, ind, d);
-        // printf("%d %d\n", ind->width, ind->precision);
         *(idx) += k;
         return (is_a_conversion(d[k]));
     }

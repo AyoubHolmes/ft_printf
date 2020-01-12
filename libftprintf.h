@@ -24,7 +24,7 @@ typedef		struct
 	int		star_existence_precision;
     int		star_existence_width;
     int		point_existence;
-    int		nbr_spaces;
+    // int		nbr_spaces;
 }			format_preciser;
 int		ft_strlen(const char *s);
 int		type_of_arg(const char *d, int *i, format_preciser *indicator);
